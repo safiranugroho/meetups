@@ -32,15 +32,15 @@ get "/" do
   service.authorization = authorize
 
   message = RMail::Message.new
-  message.header["To"] = ENV["EMAIL_RECEIVER"]
-  message.header["From"] = ENV["EMAIL_SENDER"]
-  message.header["Subject"] = ENV["EMAIL_SUBJECT"]
+  message.header.to = ENV["EMAIL_RECIPIENT"]
+  message.header.from = ENV["EMAIL_SENDER"]
+  message.header.subject = ENV["EMAIL_SUBJECT"]
   message.body = "Hiya!"
 
   service.send_user_message(ENV["DEFAULT_USER_ID"], upload_source: StringIO.new(message.to_s), content_type: "message/rfc822")
+  puts "Message sent from #{ENV["EMAIL_SENDER"]} to #{ENV["EMAIL_RECIPIENT"]}!"
 end
 
 get "/auth-callback" do
-  target_url = Google::Auth::WebUserAuthorizer.handle_auth_callback_deferred(request)
-  redirect target_url
+  redirect Google::Auth::WebUserAuthorizer.handle_auth_callback_deferred(request)
 end
