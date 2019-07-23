@@ -1,4 +1,6 @@
 token.yaml
 
-.DS_Store
 .env
+.vscode
+
+.DS_Store
