@@ -1,4 +1,4 @@
-require "./helpers.rb"
+require "./lib/helpers.rb"
 
 class TestHelpers
   include Helpers
