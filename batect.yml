@@ -31,10 +31,10 @@ tasks:
       - install
 
   test:
-    description: run the (one) unit test
+    description: run the unit tests
     run:
       container: build-env
-      command: bundle exec rspec helpers_spec.rb -f d
+      command: bundle exec rspec -f d
     prerequisites:
       - install
 
