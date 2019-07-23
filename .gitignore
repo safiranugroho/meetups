@@ -2,5 +2,6 @@ token.yaml
 
 .env
 .vscode
+.bundle-cache
 
 .DS_Store

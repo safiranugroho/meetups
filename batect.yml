@@ -1,0 +1,47 @@
+containers:
+  build-env:
+    image: ruby:2.6.3
+    volumes:
+      - local: .
+        container: /code
+        options: cached
+    working_directory: /code
+    environment:
+      BUNDLE_PATH: /code/.bundle-cache
+    run_as_current_user:
+      enabled: true
+      home_directory: /home/container-user
+
+tasks:
+  install:
+    description: install all gems from Gemfile
+    run:
+      container: build-env
+      command: bundle install
+
+  run:
+    description: run the application
+    run:
+      container: build-env
+      command: bundle exec ruby app.rb
+      ports:
+      - local: 4567
+        container: 4567
+    prerequisites:
+      - install
+
+  test:
+    description: run the (one) unit test
+    run:
+      container: build-env
+      command: bundle exec rspec helpers_spec.rb -f d
+    prerequisites:
+      - install
+
+  format:
+    description: lint and format the code
+    run:
+      container: build-env
+      command: bundle exec standardrb --format clang --fix
+    prerequisites:
+      - install
