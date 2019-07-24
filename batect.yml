@@ -25,7 +25,7 @@ tasks:
       container: build-env
       command: bundle install
 
-  run:
+  start:
     description: run the application
     run:
       container: build-env
@@ -48,6 +48,6 @@ tasks:
     description: lint and format the code
     run:
       container: build-env
-      command: bundle exec standardrb --format clang --fix
+      command: bundle exec rubocop --safe-auto-correct
     prerequisites:
       - install

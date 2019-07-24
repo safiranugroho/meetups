@@ -68,8 +68,6 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
-    rubocop-performance (1.4.0)
-      rubocop (>= 0.71.0)
     ruby-progressbar (1.10.1)
     signet (0.11.0)
       addressable (~> 2.3)
@@ -81,9 +79,6 @@ GEM
       rack (~> 2.0)
       rack-protection (= 2.0.5)
       tilt (~> 2.0)
-    standard (0.1.0)
-      rubocop (~> 0.72.0)
-      rubocop-performance (~> 1.4.0)
     tilt (2.0.9)
     uber (0.1.0)
     unicode-display_width (1.6.0)
@@ -96,8 +91,8 @@ DEPENDENCIES
   google-api-client (~> 0.9)
   rmail (~> 1.1)
   rspec
+  rubocop (~> 0.72.0)
   sinatra
-  standard
 
 RUBY VERSION
    ruby 2.6.3p62
