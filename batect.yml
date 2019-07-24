@@ -13,6 +13,12 @@ containers:
       home_directory: /home/container-user
 
 tasks:
+  shell:
+    description: start a shell session
+    run:
+      container: build-env
+      command: bash
+
   install:
     description: install all gems from Gemfile
     run:
@@ -23,7 +29,7 @@ tasks:
     description: run the application
     run:
       container: build-env
-      command: bundle exec ruby app.rb
+      command: bundle exec rackup -o 0.0.0.0 -p 4567
       ports:
       - local: 4567
         container: 4567
