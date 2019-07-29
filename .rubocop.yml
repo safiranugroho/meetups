@@ -11,7 +11,7 @@ Metrics/BlockLength:
   Enabled: false
 
 Metrics/MethodLength:
-  Max: 12
+  Max: 15
 
 Metrics/AbcSize:
   Max: 20
