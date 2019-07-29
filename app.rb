@@ -15,7 +15,7 @@ configure do
   enable :sessions
   set :scope, Google::Apis::GmailV1::AUTH_GMAIL_COMPOSE
   set :client_id, Google::Auth::ClientId.new(ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'])
-  set :token_store, Google::Auth::Stores::FileTokenStore.new(file: ENV['TOKEN_PATH'])
+  set :token_store, Google::Auth::Stores::FileTokenStore.new(file: 'token.yaml')
 end
 
 helpers do
@@ -27,8 +27,9 @@ helpers do
       '/authorize-gmail-callback'
     )
 
-    credentials = authorizer.get_credentials(ENV['DEFAULT_USER_ID'], request)
-    redirect authorizer.get_authorization_url(login_hint: ENV['DEFAULT_USER_ID'], request: request) if credentials.nil?
+    default_user_id = 'me'
+    credentials = authorizer.get_credentials(default_user_id, request)
+    redirect authorizer.get_authorization_url(login_hint: default_user_id, request: request) if credentials.nil?
 
     gmail_service.authorization = credentials
   end
@@ -37,7 +38,7 @@ helpers do
     message = RMail::Message.new
     message.header.to = ENV['EMAIL_RECIPIENT']
     message.header.from = ENV['EMAIL_SENDER']
-    message.header.subject = ENV['EMAIL_SUBJECT']
+    message.header.subject = '[MEL] Meetups this week!'
     message.body = 'Hiya!'
 
     message
