@@ -1,5 +1,4 @@
 require 'sinatra/base'
-require 'dotenv/load'
 
 require './lib/gmail_auth.rb'
 require './lib/meetup_auth.rb'
