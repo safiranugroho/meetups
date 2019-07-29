@@ -10,7 +10,7 @@ require 'uri'
 require 'json'
 
 configure do
-  Google::Apis::ClientOptions.default.application_name = ENV['APPLICATION_NAME']
+  Google::Apis::ClientOptions.default.application_name = 'Weekly Meetups'
 
   enable :sessions
   set :scope, Google::Apis::GmailV1::AUTH_GMAIL_COMPOSE
@@ -70,7 +70,7 @@ get '/authorize-meetup' do
   redirect 'https://secure.meetup.com/oauth2/authorize'\
            "?client_id=#{ENV['MEETUP_CLIENT_ID']}"\
            '&response_type=code'\
-           '&redirect_uri=http://localhost:4567/authorize-meetup-callback'
+           "&redirect_uri=#{ENV['MEETUP_CALLBACK_HOST']}/authorize-meetup-callback"
 end
 
 get '/authorize-meetup-callback' do
@@ -81,7 +81,7 @@ get '/authorize-meetup-callback' do
     client_id: ENV['MEETUP_CLIENT_ID'],
     client_secret: ENV['MEETUP_CLIENT_SECRET'],
     grant_type: 'authorization_code',
-    redirect_uri: 'http://localhost:4567/authorize-meetup-callback',
+    redirect_uri: "#{ENV['MEETUP_CALLBACK_HOST']}/authorize-meetup-callback",
     code: params[:code]
   )
 
