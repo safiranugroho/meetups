@@ -8,7 +8,7 @@ module WeeklyMeetups
     enable :sessions
     set :default_user_id, 'me'
 
-    helpers WeeklyMeetups::GmailAuthHelpers
+    helpers GmailAuthHelpers
 
     get '/authorize-gmail' do
       gmail_service = Google::Apis::GmailV1::GmailService.new

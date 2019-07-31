@@ -5,7 +5,7 @@ module WeeklyMeetups
   class MeetupAuth < Sinatra::Application
     enable :sessions
 
-    helpers WeeklyMeetups::MeetupAuthHelpers
+    helpers MeetupAuthHelpers
 
     get '/authorize-meetup' do
       redirect 'https://secure.meetup.com/oauth2/authorize'\
