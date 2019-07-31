@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title Weekly Meetups
+    css:
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        line-height: 15px;
+      }
+      p, a {
+        margin: 0;
+      }
+      span {
+        color: gray;
+      }
+      #date {
+        font-weight: bold;
+        margin: 10px 0;
+      }
+      #name {
+        color: royalblue;
+      }
+
+  body
+    p#date = event['local_date']
+    a#name href="#{event['link']}" = event['name']
+    p#group
+      span> by
+      = event['group']['name']
+    p#venue
+      span> at
+      = event['venue']['name']

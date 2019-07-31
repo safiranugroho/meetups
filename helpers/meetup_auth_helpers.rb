@@ -26,5 +26,16 @@ module WeeklyMeetups
       response = http.request(request)
       response.body
     end
+
+    def get_events_by_group(group)
+      uri = URI.parse("https://api.meetup.com/#{group}/events")
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+
+      request = Net::HTTP::Get.new(uri.request_uri)
+
+      response = http.request(request)
+      response.body
+    end
   end
 end
