@@ -1,5 +1,5 @@
 require 'dotenv/load'
-require 'rmail'
+require 'mail'
 require 'googleauth'
 require 'googleauth/web_user_authorizer'
 require 'googleauth/stores/file_token_store'
@@ -29,11 +29,16 @@ module WeeklyMeetups
     end
 
     def compose_email
-      message = RMail::Message.new
-      message.header.to = ENV['EMAIL_RECIPIENT']
-      message.header.from = ENV['EMAIL_SENDER']
-      message.header.subject = '[MEL] Meetups this week!'
-      message.body = 'Hiya!'
+      message = Mail.new do
+        from    ENV['EMAIL_SENDER']
+        to      ENV['EMAIL_RECIPIENT']
+        subject '[MEL] Meetups this week!'
+
+        html_part do
+          content_type 'text/html; charset=UTF-8'
+          body File.read('./views/output.html')
+        end
+      end
 
       message
     end

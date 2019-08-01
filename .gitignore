@@ -1,4 +1,5 @@
 token.yaml
+views/output.html
 
 .env
 .vscode

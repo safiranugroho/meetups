@@ -1,14 +1,12 @@
 require 'sinatra/base'
 require 'json'
+require 'erb'
 
 require './helpers/meetup_auth_helpers.rb'
 
 module WeeklyMeetups
   class MeetupAuth < Sinatra::Application
     enable :sessions
-
-    # find a better way to do this
-    set :views, settings.root + '/../views'
 
     helpers MeetupAuthHelpers
 
@@ -26,7 +24,16 @@ module WeeklyMeetups
       puts "Meetup.com access token- #{response}"
 
       events = JSON.parse get_events_by_group 'ThoughtWorks-Melbourne'
-      slim :index, locals: { event: events.first }
+      @event = events.first
+
+      layout = File.read('./views/layout.erb')
+      output = ERB.new(layout).result(binding)
+
+      File.open('./views/output.html', 'w+') do |f|
+        f.write output
+      end
+
+      redirect '/authorize-gmail'
     end
   end
 end
