@@ -15,13 +15,89 @@ module WeeklyMeetups
     helpers MeetupHelpers
 
     meetup_groups = %w[
-      Women-Who-Code-Melbourne
+      Female-Coders-Lab-Melbourne
+      Melbourne-Scala-User-Group
+      golang-mel
+      Infrastructure-Coders
+      Melbourne-Haskell-Users-Group
+      devops-melbourne
+      AWS-AUS
+      MelbourneMUG
+      Docker-Melbourne-Australia
+      AngularJS-Melbourne
+      Meteor-Melbourne
+      gdg-melbourne
+      Melbourne-Python-Meetup-Group
+      Swift-Devs-Melbourne
+      Melbourne-Microservices
+      MelbCSS
+      Melbourne-Apache-Spark-Meetup
+      React-Melbourne
+      scrum-12
+      Agile-Project-Managers-Melbourne
+      Agile-Business-Analysts-Melbourne
+      Open-Knowledge-Melbourne
+      Application-Security-OWASP-Melbourne
+      Big-Data-Analytics-Meetup-Group
+      HadoopMelbourne
+      Ruby-On-Rails-Oceania-Melbourne
+      hack-for-privacy
+      BuzzConf
+      Melbourne-Java-JVM-Users-Group
+      AgileCoach
+      Limited-WIP-Society
+      Melbourne-Lean-Change-Management-Meetup
+      Cynefin-Melbourne-Meetup-Group
+      Responsive-Org-Melbourne
+      CTO-School-Melbourne
+      Product-Anonymous-Meetup-Melbourne
+      ProductTank-Melbourne
+      Melbourne-Lean-Coffee
+      Visual-Practitioners-Melbourne
+      Design-Thinking-and-Business-Innovation-Melbourne
+      Melbourne-UX-Leadership-Meetup
+      SecTalks-Melbourne
+      Melbourne-VR
+      The-UX-Design-Group-of-Melbourne
+      Melbourne-CocoaHeads
       PyLadies-Melbourne
+      Melbourne-Functional-User-Group-MFUG
+      ThoughtWorks-Melbourne
+      Computer-Graphics-on-the-Web
+      Melbourne-Blender-Society
+      Machine-Learning-AI-Meetup
+      Data-Engineering-Melbourne
+      melbnlp
+      Melbourne-Women-in-Machine-Learning-and-Data-Science
+      Melbourne-DevSecOps-User-Group
+      Melbourne-Kubernetes-Meetup
+      GDG-Cloud-Melbourne
+      Melbourne-Creative-AI-Meetup
+      melbourne-search
+      codelikeagirlau
+      Women-Who-Code-Melbourne
+      Disruptors-In-Tech-Melb
+      DDD-Melbourne-By-Night
+      Elm-Melbourne
+      Melbourne-ML-AI-Bookclub
+      Melbourne-Kotlin-Meetup
+      Junior-Developers-Melbourne
+      Melbourne-Docker-User-Group
+      the-web
+      Melbourne-NET-User-Group
+      Cyberspectrum-Melbourne
+      Enterprise-Data-Science-Architecture
+      DeepRacer-Nights
     ]
 
     get '/fetch-meetups' do
-      @events = []
-      meetup_groups.each { |group| @events = @events.concat JSON.parse get_events_by_group(group) }
+      all_events = []
+      meetup_groups.each do |group|
+        events_by_group = JSON.parse get_events_by_group(group)
+        all_events = all_events.concat(events_by_group) unless events_by_group.instance_of? Hash
+      end
+
+      @events_by_date = sort_events_by_date(all_events) unless all_events.empty?
 
       layout = File.read('./views/layout.erb')
       output = ERB.new(layout).result(binding)
