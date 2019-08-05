@@ -10,9 +10,6 @@ module WeeklyMeetups
       register Sinatra::Reloader
     end
 
-    set :root, File.dirname(__FILE__) + '/..'
-    set :views, settings.root + '/views'
-
     use EmailRoutes
     use MeetupRoutes
 

@@ -27,8 +27,10 @@ module WeeklyMeetups
       response.body
     end
 
-    def get_events_by_group(group)
-      uri = URI.parse("https://api.meetup.com/#{group}/events")
+    def get_events_by_group(group, number_of_extra_days = 7)
+      meetup_latest_date = (Date.today + number_of_extra_days).iso8601
+
+      uri = URI.parse("https://api.meetup.com/#{group}/events?no_later_than=#{meetup_latest_date}")
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
 
