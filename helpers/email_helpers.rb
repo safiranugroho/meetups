@@ -6,7 +6,7 @@ require 'googleauth/stores/file_token_store'
 require 'google/apis/gmail_v1'
 
 module WeeklyMeetups
-  module GmailAuthHelpers
+  module EmailHelpers
     def authorize(gmail_service)
       scope = Google::Apis::GmailV1::AUTH_GMAIL_COMPOSE
       client_id = Google::Auth::ClientId.new(ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'])
@@ -32,7 +32,7 @@ module WeeklyMeetups
       message = Mail.new do
         from    ENV['EMAIL_SENDER']
         to      ENV['EMAIL_RECIPIENT']
-        subject '[MEL] Meetups this week!'
+        subject '[MEL] Meetups!'
 
         html_part do
           content_type 'text/html; charset=UTF-8'

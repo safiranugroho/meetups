@@ -5,7 +5,7 @@ require 'uri'
 require 'json'
 
 module WeeklyMeetups
-  module MeetupAuthHelpers
+  module MeetupHelpers
     def get_access_token(code)
       header = { 'Content-Type': 'application/x-www-form-urlencoded' }
       request_body = URI.encode_www_form(

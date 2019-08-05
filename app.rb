@@ -1,15 +1,23 @@
 require 'sinatra/base'
+require 'sinatra/reloader'
 
-require './lib/gmail_auth.rb'
-require './lib/meetup_auth.rb'
+require './lib/email_routes.rb'
+require './lib/meetup_routes.rb'
 
 module WeeklyMeetups
   class App < Sinatra::Application
-    use GmailAuth
-    use MeetupAuth
+    configure :development do
+      register Sinatra::Reloader
+    end
+
+    set :root, File.dirname(__FILE__) + '/..'
+    set :views, settings.root + '/views'
+
+    use EmailRoutes
+    use MeetupRoutes
 
     get '/' do
-      redirect '/authorize-meetup'
+      redirect '/fetch-meetups'
     end
   end
 end
