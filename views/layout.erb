@@ -6,23 +6,25 @@
 </head>
 
 <body style="font-family: Arial, sans-serif; font-size: 13px; line-height: 17px;">
-  <% if @event.nil? %>
+  <% if @events.empty? %>
     <p>No meetups!</p>
   <% else %>
-    <p id="date" style="margin: 0; font-weight: bold; margin: 10px 0;">
-      <%= @event['local_date'] %>
-    </p>
-    <a id="name" href="<%= @event['link'] %>" style="color: royalblue; margin: 0;">
-      <%= @event['name'] %>
-    </a>
-    <p id="group" style="margin: 0;">
-      <span style="color: gray;">by </span>
-      <%= @event['group']['name'] %>
-    </p>
-    <p id="venue" style="margin: 0;">
-      <span style="color: gray;">at </span>
-      <%= @event['venue']['name'] %>
-    </p>
+    <% @events.each do |event| %>
+      <p id="date" style="margin: 0; font-weight: bold; margin: 10px 0;">
+        <%= event['local_date'] %>
+      </p>
+      <a id="name" href="<%= event['link'] %>" style="color: royalblue; margin: 0;">
+        <%= event['name'] %>
+      </a>
+      <p id="group" style="margin: 0;">
+        <span style="color: gray;">by </span>
+        <%= event['group']['name'] %>
+      </p>
+      <p id="venue" style="margin: 0;">
+        <span style="color: gray;">at </span>
+        <%= event['venue']['name'] %>
+      </p>
+    <% end %>
   <% end %>
 </body>
 

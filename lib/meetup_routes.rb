@@ -14,16 +14,19 @@ module WeeklyMeetups
 
     helpers MeetupHelpers
 
+    meetup_groups = %w[
+      Women-Who-Code-Melbourne
+      PyLadies-Melbourne
+    ]
+
     get '/fetch-meetups' do
-      events = JSON.parse get_events_by_group('Women-Who-Code-Melbourne')
-      @event = events.first
+      @events = []
+      meetup_groups.each { |group| @events = @events.concat JSON.parse get_events_by_group(group) }
 
       layout = File.read('./views/layout.erb')
       output = ERB.new(layout).result(binding)
 
-      File.open('./views/output.html', 'w+') do |f|
-        f.write(output)
-      end
+      File.open('./views/output.html', 'w+') { |file| file.write(output) }
 
       erb :layout
     end
