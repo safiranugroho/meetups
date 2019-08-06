@@ -30,11 +30,11 @@ module WeeklyMeetups
 
     def compose_email
       message = Mail.new do
-        from    ENV['EMAIL_SENDER']
-        to      ENV['EMAIL_RECIPIENT']
-        subject '[MEL] Meetups!'
+        from         "#{ENV['EMAIL_SENDER_NAME']} <#{ENV['EMAIL_SENDER_ADDRESS']}>"
+        to           ENV['EMAIL_RECIPIENT']
+        subject      '[MEL] Meetups this week!'
         content_type 'text/html; charset=UTF-8'
-        body File.read('./views/output.html')
+        body         File.read('./views/output.html')
       end
 
       StringIO.new(message.to_s)
