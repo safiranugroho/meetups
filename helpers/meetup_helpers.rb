@@ -28,7 +28,7 @@ module WeeklyMeetups
     end
 
     def get_events_by_group(group, number_of_extra_days = 7)
-      meetup_earliest_date = (Date.today).iso8601
+      meetup_earliest_date = Date.today.iso8601
       meetup_latest_date = (Date.today + number_of_extra_days).iso8601
 
       uri = URI.parse("https://api.meetup.com/#{group}/events"\

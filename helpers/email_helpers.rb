@@ -33,11 +33,8 @@ module WeeklyMeetups
         from    ENV['EMAIL_SENDER']
         to      ENV['EMAIL_RECIPIENT']
         subject '[MEL] Meetups!'
-
-        html_part do
-          content_type 'text/html; charset=UTF-8'
-          body File.read('./views/output.html')
-        end
+        content_type 'text/html; charset=UTF-8'
+        body File.read('./views/output.html')
       end
 
       StringIO.new(message.to_s)
