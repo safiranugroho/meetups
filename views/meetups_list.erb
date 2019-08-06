@@ -1,16 +1,13 @@
-<!DOCTYPE html>
 <html>
-
 <head>
   <title>Weekly Meetups</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      font-size: 13px;
-      line-height: 17px;
-    }
     p, a {
       margin: 0;
+      line-height: 17px;
+      font-size: 13px;
+      font-family: Arial, sans-serif;
     }
     a {
       color: royalblue;
@@ -23,18 +20,16 @@
       margin: 10px 0;
     }
     .events-by-date {
-      margin: 20px 0;
+      margin-bottom: 20px;
     }
     .events-list {
       padding-inline-start: 20px;
     }
     .event {
       margin: 8px 0;
-      width: max-content;
     }
   </style>
 </head>
-
 <body>
   <% @events_by_date.each do |date, events| %>
   <div class="events-by-date">
