@@ -10,14 +10,14 @@ module WeeklyMeetups
 
     helpers EmailHelpers
 
-    get '/authorize-gmail' do
+    get '/send-meetups-via-email' do
       gmail_service = Google::Apis::GmailV1::GmailService.new
 
-      authorize(gmail_service)
+      authorise(gmail_service)
       send_email(gmail_service, compose_email)
     end
 
-    get '/authorize-gmail-callback' do
+    get '/authorise-email-callback' do
       redirect Google::Auth::WebUserAuthorizer
         .handle_auth_callback_deferred(request)
     end
