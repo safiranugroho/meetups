@@ -99,8 +99,8 @@ module WeeklyMeetups
 
       @events_by_date = sort_events_by_date(all_events) unless all_events.empty?
 
-      layout = File.read('./views/meetups_list.erb')
-      output = ERB.new(layout).result(binding)
+      email_content = File.read('./views/email_content.erb')
+      output = ERB.new(email_content).result(binding)
 
       File.open('./views/output.html', 'w+') { |file| file.write(output) }
 
