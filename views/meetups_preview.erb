@@ -7,23 +7,40 @@
     body {
       display: flex;
       flex-direction: column;
-      padding: 20px 30px;
+      padding: 0 30px;
       margin: 0;
+    }
+    #container {
+      text-align: center;
+    }
+    #meetups-list {
+      text-align: left;
+      max-width: max-content;
+      margin: 20px auto;
     }
     #button {
       text-decoration: none;
-      max-width: max-content;
       border: none;
-      background: royalblue;
-      color: white;
       border-radius: 5px;
+      background: royalblue;
+      max-width: max-content;
+      color: white;
       padding: 20px;
-      margin: 10px 0;
+      margin: 40px auto;
+      display: block;
     }
   </style>
 </head>
 <body>
-  <div><%= erb :meetups_list %></div>
-  <a id="button" href="/send-meetups-via-email">Send meetups to ThoughtWorks Melbourne via email</a>
+  <div id="container">
+    <div id="meetups-list"><%= erb :meetups_list %></div>
+    <a id="button" onclick="confirmSendEmail()">Send meetups to ThoughtWorks Melbourne via email</a>
+    <script>
+      function confirmSendEmail() {
+        var message = "Send meetups to <%= ENV['EMAIL_RECIPIENT'] %>?"
+        if (confirm(message)) { location.href = "/send-meetups-via-email" }
+      }
+    </script>
+  </div>
 </body>
 </html>

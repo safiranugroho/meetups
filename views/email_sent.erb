@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weekly Meetups</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+    span {
+      font-weight: bold;
+    }
+    #party {
+      font-size: 100px;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <p id="party">🎉</p>
+  <p>Meetups email sent successfully to <span><%= ENV['EMAIL_RECIPIENT'] %></span>!</p>
+</body>
+</html>

@@ -8,6 +8,9 @@ module WeeklyMeetups
     enable :sessions
     set :default_user_id, 'me'
 
+    set :root, File.dirname(__FILE__) + '/..'
+    set :views, settings.root + '/views'
+
     helpers EmailHelpers
 
     get '/send-meetups-via-email' do
@@ -15,6 +18,8 @@ module WeeklyMeetups
 
       authorise(gmail_service)
       send_email(gmail_service, compose_email)
+
+      erb :email_sent
     end
 
     get '/authorise-email-callback' do
