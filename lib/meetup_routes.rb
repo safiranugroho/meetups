@@ -29,23 +29,19 @@ module WeeklyMeetups
       gdg-melbourne
       Melbourne-Python-Meetup-Group
       Swift-Devs-Melbourne
-      Melbourne-Microservices
-      MelbCSS
       Melbourne-Apache-Spark-Meetup
       React-Melbourne
       scrum-12
       Agile-Project-Managers-Melbourne
       Agile-Business-Analysts-Melbourne
-      Open-Knowledge-Melbourne
       Application-Security-OWASP-Melbourne
       Big-Data-Analytics-Meetup-Group
-      HadoopMelbourne
       Ruby-On-Rails-Oceania-Melbourne
       hack-for-privacy
       BuzzConf
       Melbourne-Java-JVM-Users-Group
       AgileCoach
-      Limited-WIP-Society
+      Kanban-Melbourne
       Melbourne-Lean-Change-Management-Meetup
       Cynefin-Melbourne-Meetup-Group
       Responsive-Org-Melbourne
@@ -53,9 +49,8 @@ module WeeklyMeetups
       Product-Anonymous-Meetup-Melbourne
       ProductTank-Melbourne
       Melbourne-Lean-Coffee
-      Visual-Practitioners-Melbourne
+      Visual-Friends-Australasia
       Design-Thinking-and-Business-Innovation-Melbourne
-      Melbourne-UX-Leadership-Meetup
       SecTalks-Melbourne
       Melbourne-VR
       The-UX-Design-Group-of-Melbourne
@@ -63,7 +58,6 @@ module WeeklyMeetups
       PyLadies-Melbourne
       Melbourne-Functional-User-Group-MFUG
       ThoughtWorks-Melbourne
-      Computer-Graphics-on-the-Web
       Melbourne-Blender-Society
       Machine-Learning-AI-Meetup
       Data-Engineering-Melbourne
