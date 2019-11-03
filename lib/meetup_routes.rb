@@ -83,7 +83,6 @@ module WeeklyMeetups
       Enterprise-Data-Science-Architecture
       DeepRacer-Nights
       Melbourne-APIs-Meetup
-      Melbourne-Java-JVM-Users-Group
       slack-platform-community-melbourne
       GraphQL-Melbourne
       TECHLED-Melbourne
