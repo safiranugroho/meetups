@@ -3,6 +3,7 @@ require 'sinatra/reloader'
 
 require './lib/email_routes.rb'
 require './lib/meetup_routes.rb'
+require './lib/meetup_auth.rb'
 
 module WeeklyMeetups
   class App < Sinatra::Application
@@ -15,6 +16,7 @@ module WeeklyMeetups
 
     use EmailRoutes
     use MeetupRoutes
+    use MeetupAuth
 
     get '/' do
       redirect '/fetch-meetups'
