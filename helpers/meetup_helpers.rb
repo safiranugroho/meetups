@@ -45,12 +45,15 @@ module WeeklyMeetups
     end
 
     def get_upcoming_events(access_token, number_of_extra_days = 7)
-      uri = URI.parse("http://localhost:4000/graphql")
+      uri = URI.parse('http://localhost:4000/graphql')
       http = Net::HTTP.new(uri.host, uri.port)
 
-      header = { 'Content-Type': 'application/json', 'Authorization': "Bearer #{access_token}"}
+      header = { 'Content-Type': 'application/json', 'Authorization': "Bearer #{access_token}" }
       body = {
-        "query": "{ events(input: { category: \"292\", daysInAdvance: 7  }) { name day date time venue link } }"
+        "query": "{ events"\
+                    "(input: { category: \"292\", daysInAdvance: #{number_of_extra_days}  }) "\
+                    "{ name day date time venue link group } "\
+                  "}"
       }
 
       request = Net::HTTP::Post.new(uri.request_uri, header)
@@ -64,7 +67,7 @@ module WeeklyMeetups
       events_by_date = Hash.new { |hash, key| hash[key] = [] }
 
       events.each do |event|
-        date = event['local_date']
+        date = event['date']
         events_by_date[date] = events_by_date[date] ? events_by_date[date].push(event) : event
       end
 
