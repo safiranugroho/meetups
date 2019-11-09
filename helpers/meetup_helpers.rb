@@ -6,30 +6,13 @@ require 'json'
 
 module WeeklyMeetups
   module MeetupHelpers
-    def get_events_by_group(group, number_of_extra_days = 7)
-      meetup_earliest_date = Date.today.iso8601
-      meetup_latest_date = (Date.today + number_of_extra_days).iso8601
-
-      uri = URI.parse("https://api.meetup.com/#{group}/events"\
-        "?no_earlier_than=#{meetup_earliest_date}"\
-        "&no_later_than=#{meetup_latest_date}")
-
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
-
-      request = Net::HTTP::Get.new(uri.request_uri)
-
-      response = http.request(request)
-      response.body
-    end
-
     def get_access_token(code)
       header = { 'Content-Type': 'application/x-www-form-urlencoded' }
       request_body = URI.encode_www_form(
         client_id: ENV['MEETUP_CLIENT_ID'],
         client_secret: ENV['MEETUP_CLIENT_SECRET'],
         grant_type: 'authorization_code',
-        redirect_uri: 'http://localhost:4567/authorize-meetup-callback',
+        redirect_uri: 'http://localhost:4567/fetch-meetups',
         code: code
       )
 
@@ -50,10 +33,10 @@ module WeeklyMeetups
 
       header = { 'Content-Type': 'application/json', 'Authorization': "Bearer #{access_token}" }
       body = {
-        "query": "{ events"\
+        "query": '{ events'\
                     "(input: { category: \"292\", daysInAdvance: #{number_of_extra_days}  }) "\
-                    "{ name day date time venue link group } "\
-                  "}"
+                    '{ name day date time venue link group } '\
+                  '}'
       }
 
       request = Net::HTTP::Post.new(uri.request_uri, header)
