@@ -12,7 +12,7 @@ module WeeklyMeetups
         client_id: ENV['MEETUP_CLIENT_ID'],
         client_secret: ENV['MEETUP_CLIENT_SECRET'],
         grant_type: 'authorization_code',
-        redirect_uri: 'http://localhost:4567/fetch-meetups',
+        redirect_uri: "#{ENV['MEETUP_CALLBACK_HOST']}/fetch-meetups",
         code: code
       )
 
@@ -28,19 +28,18 @@ module WeeklyMeetups
     end
 
     def get_upcoming_events(access_token, number_of_extra_days = 7)
-      uri = URI.parse('http://localhost:4000/graphql')
+      end_range_date = (DateTime.now + number_of_extra_days).strftime('%Y-%m-%dT%H:%M:%S')
+
+      uri = URI.parse('https://api.meetup.com/find/upcoming_events'\
+        '?topic_category=292'\
+        "&end_date_range=#{end_range_date}")
+
+      headers = { 'Authorization': "Bearer #{access_token}" }
+
       http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
 
-      header = { 'Content-Type': 'application/json', 'Authorization': "Bearer #{access_token}" }
-      body = {
-        "query": '{ events'\
-                    "(input: { category: \"292\", daysInAdvance: #{number_of_extra_days}  }) "\
-                    '{ name day date time venue link group } '\
-                  '}'
-      }
-
-      request = Net::HTTP::Post.new(uri.request_uri, header)
-      request.body = body.to_json
+      request = Net::HTTP::Get.new(uri.request_uri, headers)
 
       response = http.request(request)
       response.body
@@ -50,7 +49,7 @@ module WeeklyMeetups
       events_by_date = Hash.new { |hash, key| hash[key] = [] }
 
       events.each do |event|
-        date = event['date']
+        date = event['local_date']
         events_by_date[date] = events_by_date[date] ? events_by_date[date].push(event) : event
       end
 
