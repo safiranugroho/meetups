@@ -17,7 +17,10 @@ module WeeklyMeetups
     use MeetupRoutes
 
     get '/' do
-      redirect '/authorize-meetup'
+      redirect 'https://secure.meetup.com/oauth2/authorize'\
+              "?client_id=#{ENV['MEETUP_CLIENT_ID']}"\
+              '&response_type=code'\
+              "&redirect_uri=#{ENV['MEETUP_CALLBACK_HOST']}/fetch-meetups"
     end
   end
 end

@@ -13,19 +13,12 @@ module WeeklyMeetups
 
     helpers MeetupHelpers
 
-    get '/authorize-meetup' do
-      redirect 'https://secure.meetup.com/oauth2/authorize'\
-              '?client_id=nin8u7bna69vbrictum1rcve4l'\
-              '&response_type=code'\
-              '&redirect_uri=http://localhost:4567/fetch-meetups'
-    end
-
     get '/fetch-meetups' do
-      response = get_access_token(params[:code])
-      json = JSON.parse response.body
+      access_token_response = get_access_token(params[:code])
+      json = JSON.parse access_token_response.body
 
-      events = JSON.parse get_upcoming_events(json['access_token'])
-      @events_by_date = sort_events_by_date(events['data']['events']) unless events.empty?
+      response = JSON.parse get_upcoming_events(json['access_token'])
+      @events_by_date = sort_events_by_date(response['events']) unless response['events'].empty?
 
       email_content = File.read('./views/email_content.erb')
       output = ERB.new(email_content).result(binding)

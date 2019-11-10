@@ -36,8 +36,8 @@
     <p class="date"><%= date %></p>
     <ul class="events-list">
       <% events.each do |event| %>
-      <% venue_name = event['venue'] unless event['venue'].nil? %>
-      <% group_name = event['group'] unless event['group'].nil? %>
+      <% venue_name = event['venue']['name'] unless event['venue'].nil? %>
+      <% group_name = event['group']['name'] unless event['group'].nil? %>
       <li class="event">
         <% background_color = 'lemonchiffon' if venue_name.include? 'ThoughtWorks' unless venue_name.nil? %>
         <% background_color = 'lemonchiffon' if group_name.include? 'ThoughtWorks' unless group_name.nil? %>
