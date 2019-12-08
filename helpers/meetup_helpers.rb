@@ -31,8 +31,7 @@ module WeeklyMeetups
       end_range_date = (DateTime.now + number_of_extra_days).strftime('%Y-%m-%dT%H:%M:%S')
 
       uri = URI.parse('https://api.meetup.com/find/upcoming_events'\
-        '?topic_category=292'\
-        "&end_date_range=#{end_range_date}")
+        "?end_date_range=#{end_range_date}")
 
       headers = { 'Authorization': "Bearer #{access_token}" }
 
