@@ -18,7 +18,7 @@ module WeeklyMeetups
       json = JSON.parse access_token_response.body
 
       response = JSON.parse get_upcoming_events(json['access_token'])
-      @events_by_date = sort_events_by_date(response['events']) unless response['events'].empty?
+      @events_by_date = sort_events_by_date(response['data']['groups']) unless response['data']['groups'].empty?
 
       email_content = File.read('./views/email_content.erb')
       output = ERB.new(email_content).result(binding)

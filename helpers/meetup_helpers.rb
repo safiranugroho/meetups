@@ -8,6 +8,7 @@ module WeeklyMeetups
   module MeetupHelpers
     def get_access_token(code)
       header = { 'Content-Type': 'application/x-www-form-urlencoded' }
+
       request_body = URI.encode_www_form(
         client_id: ENV['MEETUP_CLIENT_ID'],
         client_secret: ENV['MEETUP_CLIENT_SECRET'],
@@ -27,31 +28,51 @@ module WeeklyMeetups
       response
     end
 
-    def get_upcoming_events(access_token, number_of_extra_days = 7)
-      end_range_date = (DateTime.now + number_of_extra_days).strftime('%Y-%m-%dT%H:%M:%S')
+    def get_upcoming_events(access_token)
+      request_body = {
+        "query":"{\n
+          groups {\n
+            nextEvent {\n
+              id\n
+              name\n
+              date\n
+              venue\n
+              group\n
+              link\n
+            }\n
+          }\n
+        }"
+      }.to_json
 
-      uri = URI.parse('https://api.meetup.com/find/upcoming_events'\
-        '?topic_category="292"'\
-        "&end_date_range=#{end_range_date}")
+      headers = {
+        'Authorization': "Bearer #{access_token}",
+        'Content-Type': 'application/json'
+      }
 
-      headers = { 'Authorization': "Bearer #{access_token}" }
-
+      uri = URI.parse('https://weeklymeetups-gql.herokuapp.com')
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
 
-      request = Net::HTTP::Get.new(uri.request_uri, headers)
+      request = Net::HTTP::Post.new(uri.request_uri, headers)
+      request.body = request_body
 
       response = http.request(request)
       response.body
     end
 
-    def sort_events_by_date(events)
+    def sort_events_by_date(groups)
+      puts groups
+      events = groups.map {|group| group['nextEvent'] }
+
+      puts events
       events_by_date = Hash.new { |hash, key| hash[key] = [] }
 
       events.each do |event|
-        date = event['local_date']
+        date = event['date']
         events_by_date[date] = events_by_date[date] ? events_by_date[date].push(event) : event
       end
+
+      puts events_by_date
 
       events_by_date
         .sort
