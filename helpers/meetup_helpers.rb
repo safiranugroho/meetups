@@ -61,18 +61,13 @@ module WeeklyMeetups
     end
 
     def sort_events_by_date(groups)
-      puts groups
       events = groups.map {|group| group['nextEvent'] }
-
-      puts events
       events_by_date = Hash.new { |hash, key| hash[key] = [] }
 
       events.each do |event|
         date = event['date']
         events_by_date[date] = events_by_date[date] ? events_by_date[date].push(event) : event
       end
-
-      puts events_by_date
 
       events_by_date
         .sort
