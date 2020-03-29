@@ -1,5 +1,7 @@
 # weekly meetups
-Fetches all technology-related upcoming meetups from Meetup.com in the local area, with the option to send them in an email (which defaults to ThoughtWorks Australia mailing list).
+Displays all upcoming meetups for the next week from technology-related groups in Meetup.com in the local area (defaults to Melbourne, Australia), with the option to send them in an email (defaults to ThoughtWorks Australia mailing list).
+
+This client consumes the data from a GraphQL server in this project: https://github.com/safiranugroho/meetups-gql.
 
 ## Getting started
 Here are instructions if you want to maintain your own version of weekly meetups.
